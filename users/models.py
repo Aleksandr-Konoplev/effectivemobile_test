@@ -5,7 +5,7 @@ from django.db import models
 class User(AbstractUser):
     username = None
     first_name = models.CharField(max_length=100, verbose_name='Имя')
-    middle_name = models.CharField(max_length=100, verbose_name='Отчество')
+    middle_name = models.CharField(max_length=100, verbose_name='Отчество', blank=True, null=True)
     last_name = models.CharField(max_length=100, verbose_name='Фамилия')
     email = models.EmailField(unique=True, verbose_name='Email')
 

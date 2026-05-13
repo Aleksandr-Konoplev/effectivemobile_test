@@ -10,6 +10,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from users.models import User
 from users.serializers import UserSerializer
 from users.paginators import UsersPaginator
+from users.permissions import IsOwner
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -24,25 +25,22 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class UserListAPIView(ListAPIView):
-    permission_classes = (AllowAny, )
     serializer_class = UserSerializer
     queryset = User.objects.all()
     pagination_class = UsersPaginator
 
 
 class UserRetrieveAPIView(RetrieveAPIView):
-    permission_classes = (AllowAny, )
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
 class UserUpdateAPIView(UpdateAPIView):
-    permission_classes = (AllowAny, )
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
 class UserDestroyAPIView(DestroyAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, IsOwner)
     serializer_class = UserSerializer
     queryset = User.objects.all()

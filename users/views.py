@@ -44,3 +44,7 @@ class UserDestroyAPIView(DestroyAPIView):
     permission_classes = (IsAuthenticated, IsOwner)
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()

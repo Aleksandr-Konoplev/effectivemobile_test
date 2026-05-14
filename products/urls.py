@@ -17,7 +17,7 @@ router = SimpleRouter()
 urlpatterns = [
     path('create/', ProductCreateAPIView.as_view(), name='create'),
     path('list/', ProductListAPIView.as_view(), name='list'),
-    path('retrieve/<int:pk>/', ProductRetrieveAPIView.as_view(), name='retrieve'),
-    path('update/<int:pk>/', ProductUpdateAPIView.as_view(), name='update'),
-    path('destroy/<int:pk>/', ProductDestroyAPIView.as_view(), name='destroy'),
+    path('<int:pk>/detail/', ProductRetrieveAPIView.as_view(), name='retrieve'),
+    path('<int:pk>/update/', ProductUpdateAPIView.as_view(), name='update'),
+    path('<int:pk>/delete/', ProductDestroyAPIView.as_view(), name='destroy'),
 ] + router.urls  #type: ignore

@@ -1,3 +1,13 @@
+## Установка
+
+1. Загрузить репозитарий `git clone https://github.com/Aleksandr-Konoplev/effectivemobile_test.git`
+2. Установить зависимости `pip install -r requirements.txt`
+3. Создать файл `.env` в корневой директории из `.env.example`
+4. Создать базу данных
+5. Применить миграции `python manage.py migrate`
+6. Создать базовые роли и права доступа `python mansge.py seed_rbac`
+5. Создать суперпользователя `python manage.py csu`
+
 ## Эндпоинты
 
 ### Аутентификация
@@ -11,42 +21,6 @@
 - `access` + `refresh` token
 - Для logout используется blacklist refresh-токенов через `rest_framework_simplejwt.token_blacklist`.
 
-### login
-
-`POST /users/login/` выдает пару токенов: `access` и `refresh`.
-
-Пример запроса:
-
-```json
-{
-  "email": "user@example.com",
-  "password": "password"
-}
-```
-
-Пример ответа:
-
-```json
-{
-  "access": "<access_token>",
-  "refresh": "<refresh_token>"
-}
-```
-
-### logout
-
-Logout работает с `refresh token` (не требует валидного `access token`)
-
-Запрос `POST /users/logout/: body: refresh token` > валидация `RefreshToken(refresh)` > `token.blacklist()`
-
-
-Пример запроса:
-
-```
-{
-  "refresh": "<refresh_token>"
-}
-```
 
 ### Пользователи
 
@@ -56,9 +30,4 @@ Logout работает с `refresh token` (не требует валидног
 - `PUT/PATCH /users/<pk>/update/` - обновить пользователя
 - `DELETE /users/<pk>/delete/` - деактивировать пользователя
 
-## Примечания
-
-- Для работы blacklist должны быть применены миграции: `python manage.py migrate`
-- После logout повторное использование того же `refresh` token вернет ошибку валидации
-- Защищенные эндпоинты по умолчанию требуют JWT в заголовке `Authorization: Bearer <access_token>`
-
+## Роли и права доступа

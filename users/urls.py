@@ -21,9 +21,9 @@ urlpatterns = [
     # User CRUD
     path("register/", UserCreateAPIView.as_view(), name="register"),
     path("list/", UserListAPIView.as_view(), name="list"),
-    path("<pk>/detail/", UserRetrieveAPIView.as_view(), name="detail"),
-    path("<pk>/update/", UserUpdateAPIView.as_view(), name="update"),
-    path("<pk>/delete/", UserDestroyAPIView.as_view(), name="delete"),
+    path("<int:pk>/detail/", UserRetrieveAPIView.as_view(), name="detail"),
+    path("<int:pk>/update/", UserUpdateAPIView.as_view(), name="update"),
+    path("<int:pk>/delete/", UserDestroyAPIView.as_view(), name="delete"),
     # User Auth
     path("login/", TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name="login"),
     path("token/refresh/", TokenRefreshView.as_view(permission_classes=(AllowAny,)), name="token_refresh"),

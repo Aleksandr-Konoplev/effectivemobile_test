@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     # My_app
     'users',
     'core',
+    'products'
 ]
 
 MIDDLEWARE = [

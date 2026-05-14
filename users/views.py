@@ -5,10 +5,13 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView
 )
+from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from users.models import User
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, LogoutSerializer
 from users.paginators import UsersPaginator
 from users.permissions import IsOwner
 
@@ -48,3 +51,14 @@ class UserDestroyAPIView(DestroyAPIView):
     def perform_destroy(self, instance):
         instance.is_active = False
         instance.save()
+
+
+class LogoutAPIView(APIView):
+    permission_classes = (AllowAny,)
+
+    @staticmethod
+    def post(request):
+        serializer = LogoutSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

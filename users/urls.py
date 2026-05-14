@@ -9,7 +9,8 @@ from users.views import (
     UserListAPIView,
     UserRetrieveAPIView,
     UserUpdateAPIView,
-    UserDestroyAPIView
+    UserDestroyAPIView,
+    LogoutAPIView,
 )
 
 
@@ -26,4 +27,5 @@ urlpatterns = [
     # User Auth
     path("login/", TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name="login"),
     path("token/refresh/", TokenRefreshView.as_view(permission_classes=(AllowAny,)), name="token_refresh"),
+    path("logout/", LogoutAPIView.as_view(), name="logout"),
 ] + router.urls  #type: ignore

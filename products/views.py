@@ -5,24 +5,39 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView
 )
+from rest_framework.permissions import IsAuthenticated
+
+from products.models import Product
+from products.permissions import IsProductOwnerOrReadOnly
+from products.serializers import ProductSerializer
 
 
 class ProductCreateAPIView(CreateAPIView):
-    pass
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class ProductListAPIView(ListAPIView):
-    pass
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 
 
 class ProductRetrieveAPIView(RetrieveAPIView):
-    pass
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 
 
 class ProductUpdateAPIView(UpdateAPIView):
-    pass
+    permission_classes = (IsAuthenticated, IsProductOwnerOrReadOnly)
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 
 
 class ProductDestroyAPIView(DestroyAPIView):
-    pass
+    permission_classes = (IsAuthenticated, IsProductOwnerOrReadOnly)
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 

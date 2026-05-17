@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     # My_library
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
     # My_app
     'users',
     'core',
